@@ -1,0 +1,37 @@
+setwd("C:/Users/Abhishek Paul/Desktop/MICA/Slides and Notes/Term 4/AMMA/Titanic")
+titanic_data<-read.csv("train.csv")
+str(titanic_data)
+titanic_final<-titanic_data[c("Survived","Pclass", "Sex", "Age", "SibSp", "Parch")]
+View(titanic_final)
+str(titanic_final)
+summary(titanic_final)
+nrow(titanic_final)
+titanic_final$Age[is.na(titanic_final$Age)]=mean(titanic_final$Age,na.rm = TRUE)
+summary(titanic_final)
+
+library(gmodels)
+library(Hmisc)
+library(pROC)
+library(ResourceSelection)
+library(car)
+library(caret)
+library(dplyr)
+# split the data into training and test
+set.seed(1234) # for reproducibility. everyone who runs the code will get the same output
+titanic_final$rand <- runif(nrow(titanic_final))#$ adds a new column. runif makes it possible to produce random numbers.
+df.train <- titanic_final[titanic_final$rand <= 0.7,]# 70% must be in train
+df.test <- titanic_final[titanic_final$rand > 0.7,]# rest in test
+nrow(df.train)
+nrow(df.test)
+quantile(df.train)
+summary(df.train)
+View(df.train)
+CrossTable(df.train$Survived)
+full.model <- lm(formula = Survived ~ Pclass + Age + Sex + SibSp + Parch, 
+                  data=df.train)
+full.model.glm <- glm(formula = Survived ~ Pclass + Age + Sex + SibSp + Parch, 
+                 data=df.train)
+vif(full.model)
+vif(full.model.glm)
+df.train$ypred = ifelse(df.train$prob>=.5,'pred_yes','pred_no')
+table(df.train$ypred,df.train$y)

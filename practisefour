@@ -1,0 +1,26 @@
+# creating dummy variables in regression.
+
+people = data.frame(
+  age =       c(72,56,45,85,25,59),
+  education = c("college", "school", "none", "school", "college", "none"),
+  education.code = c(  2,        1,      0,        1,         2,      0 )
+  )
+str(people)
+
+
+lm(age ~ education, people)
+
+
+
+lm(age ~ factor(education.code), people)
+
+people$education.code <- factor(people$education.code)
+lm(age ~ education.code, people)
+
+
+lm(age ~ education, people)
+lm(age ~ education.code, people)
+
+
+m <- lm(age ~ education, people)
+model.matrix(m)

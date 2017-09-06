@@ -1,0 +1,24 @@
+fullname<-c("A","B","C","D","E")
+age<-c(35,55,45,45,21)
+math.mark<-c(65,55,45,65,25)
+science.mark<-c(89,25,56,45,74)
+total.mark<-math.mark+science.mark
+df<-data.frame(fullname,age,math.mark,science.mark,total.mark)
+View(df)
+df$pct_math.mark<-df$math.mark/df$total.mark
+View(df)
+df<-df[,-7]
+View(df)
+df1<-df[,c("fullname","age")]
+View(df1)
+vcol <- names(df)
+vcol[1] <-"Name"
+names(df)<-vcol
+df$math.mark[3]<-65
+total.mark<-math.mark+science.mark
+df<-data.frame(fullname,age,math.mark,science.mark,total.mark)
+df$exp.age=exp(df$age)
+df$log.age=log(df$age)
+df$inv.age=1/(df$age)
+df$sqrt.age=sqrt(df$age)
+df$sqr.age=(df$age)^2

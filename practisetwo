@@ -1,0 +1,22 @@
+#vectors, data frames etc are objects
+#integers, characters, boolean etc are data types
+#brackets() means functions are being called.
+#square brackets[] helps access areas in the data frame. can also use $
+
+
+a<-c(1:10)
+b<-c(15:24)
+df<-data.frame(a,b)
+View(df)
+df$a
+df$a<-c(101:110)
+View(df)
+install.packages("datasets")
+library("datasets")
+women
+mean.height<-mean(women$height)
+mean.weight<-mean(women$weight)
+women_df<-subset(women,women$height > mean.height & women$weight < mean.weight)
+women_df
+
+city_file<-read_html("http://www.worldatlas.com/articles/the-biggest-cities-in-india.html")
